@@ -4,21 +4,22 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Rules {
-	private static List<String> rulesLeft = Arrays.asList("|>*<", "d|",
-			"dm", "d>", "<>*<", "e|", "em", "e>");
-	private static List<String> rulesRight = Arrays.asList(">*<d",
-			"|md", "md", ">", "<e", "e", "|e", ">");
+	private static final List<String> rulesLeftOrig = Arrays.asList("1>x<", "d1",
+			"dm", "d>", "<>x<", "e1", "em", "e>");
+	
+	private static final List<String> rulesRightOrig = Arrays.asList(">x<d",
+			"1md", "md", ">", "<e", "e", "1e", ">");
 	
 	public static List<String> getRulesLeft() {
-		return rulesLeft;
+		return rulesLeftOrig;
 	}
 	
 	public static List<String> getRulesRight() {
-		return rulesRight;
+		return rulesRightOrig;
 	}
 	
 	public static void addRule(String left, String right) {
-		rulesLeft.add(left);
-		rulesRight.add(right);
+		rulesLeftOrig.add(left);
+		rulesRightOrig.add(right);
 	}
 }

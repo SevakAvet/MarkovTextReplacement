@@ -2,68 +2,94 @@ package com.sevak_avet;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MarkovTextReplacement {
-	public static final List<String> repLeftOrig = Arrays.asList("1>x<", "d1",
-			"dm", "d>", "<>x<", "e1", "em", "e>");
-	
-	public static final List<String> repRightOrig = Arrays.asList(">x<d",
-			"1md", "md", ">", "<e", "e", "1e", ">");
+	private static List<Integer> usedRules;
+	private static List<Integer> prioritiesList;
 
-	public static List<String> repLeft;
-	public static List<String> repRight;
+	private static List<String> repLeft;
+	private static List<String> repRight;
 
-	private static PrintWriter pw;
+	private static String textOrig;
 
-	public static void main(String[] args) throws IOException {
-		String text = "";
-		int[] priorities = new int[8];
-		
-		BufferedReader reader = new BufferedReader(new FileReader(new File(args[0])));
-		text = reader.readLine();
-		
-		String[] prioritiesString = reader.readLine().split(" ");
-		for(int i=0; i<priorities.length; ++i) {
-			priorities[i] = Integer.parseInt(prioritiesString[i]);
-		}
-		reader.close();
-		
+	public static void runReplacing(String text) {	
+		textOrig = text;
+
 		text = text.replace("|", "1");
 		text = text.replace("*", "x");
-
 
 		repLeft = new ArrayList<>();
 		repRight = new ArrayList<>();
 
-		for (int i = 0; i < priorities.length; ++i) {
-			int curPriority = priorities[i] - 1;
+		changeToPriority();
 
-			repLeft.add(repLeftOrig.get(curPriority));
-			repRight.add(repRightOrig.get(curPriority));
-		}
-
-		List<Integer> userRules = new ArrayList<>();
 		int index = 0;
-
 		while (canReplace(text)) {
 			for (int i = 0; i < repLeft.size(); ++i) {
 				if (text.indexOf(repLeft.get(i)) != -1) {
-					index = repLeftOrig.indexOf((String) repLeft.get(i)) + 1;
+					index = Rules.getRulesLeft().indexOf(repLeft.get(i)) + 1;
 					text = text.replaceFirst(repLeft.get(i), repRight.get(i));
-					userRules.add(index);
+					usedRules.add(index);
 					break;
 				}
 			}
 		}
 		
-		writeToFile(args[1], priorities, userRules);
+		textOrig = text;
+		textOrig = textOrig.replace("1", "|");
+	}
+	
+	public static void runReplacing(String priorities, String text) {
+		usedRules = new ArrayList<>();
+		prioritiesList = new ArrayList<>();
+		
+		getPriorities(priorities);
+		runReplacing(text);
+	}
 
+	public static List<Integer> getSolution() {
+		return usedRules;
+	}
+	
+	public static String getText() {
+		return textOrig;
+	}
+
+	public static List<Integer> getPriorities() {
+		return prioritiesList;
+	}
+
+	private static void getPriorities(String p) {
+		String[] prioritiesString = p.split(" ");
+
+		for (int i = 0; i < prioritiesString.length; ++i) {
+			prioritiesList.add(Integer.parseInt(prioritiesString[i]));
+		}
+	}
+
+	public static String listToString(List<Integer> solution) {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i : solution) {
+			sb.append(i);
+			sb.append(" ");
+		}
+
+		return sb.toString();
+	}
+
+	private static void changeToPriority() {
+		for (int i = 0; i < prioritiesList.size(); ++i) {
+			int curPriority = prioritiesList.get(i) - 1;
+			repLeft.add(Rules.getRulesLeft().get(curPriority));
+			repRight.add(Rules.getRulesRight().get(curPriority));
+		}
 	}
 
 	public static boolean canReplace(String str) {
@@ -75,26 +101,37 @@ public class MarkovTextReplacement {
 
 		return false;
 	}
-	
-	public static void writeToFile(String path, int[] priorities, List<Integer> usedRules) {
-		try {
-			File file = new File(path);
-			
-			pw = new PrintWriter(file);
-			for (int i : priorities) {
+
+	public static void readFromFile(String path) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(new File(path)))) {
+
+			textOrig = reader.readLine();
+			getPriorities(reader.readLine());
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	public static void writeToFile(String path) {		
+		try (PrintWriter pw = new PrintWriter(new File(path))) {
+			for (int i : prioritiesList) {
 				pw.printf("%d", i);
 			}
 
-			pw.write(" ");
+			pw.write("   ");
 
 			for (int i : usedRules) {
 				pw.printf("%d", i);
 			}
+			
+			pw.write("   ");
+			
+			pw.write(textOrig);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			pw.close();
 		}
 	}
-
 }
