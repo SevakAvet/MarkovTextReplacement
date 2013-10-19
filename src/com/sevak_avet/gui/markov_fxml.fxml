@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0"
+	prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+	fx:controller="com.sevak_avet.gui.Controller">
+	<children>
+		<TextArea prefHeight="295.0" prefWidth="338.0" wrapText="true"
+			AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0"
+			AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="103.0" />
+		<TextArea layoutY="29.0" prefHeight="39.0" prefWidth="338.0"
+			wrapText="true" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="248.0" />
+		<Label layoutX="14.0" layoutY="2.0" text="Приоритеты:">
+			<font>
+				<Font size="15.0" fx:id="x1" />
+			</font>
+		</Label>
+		<Label font="$x1" layoutX="14.0" layoutY="76.0" text="Текст:" />
+		<Label font="$x1" layoutY="2.0" text="Правила текстовых замен:"
+			AnchorPane.rightAnchor="33.0" />
+		<HBox layoutX="373.0" layoutY="36.0" prefHeight="259.0"
+			prefWidth="213.0">
+			<children>
+				<VBox prefHeight="259.0" prefWidth="27.0">
+					<children>
+						<Label text="1)">
+							<font>
+								<Font size="16.0" fx:id="x2" />
+							</font>
+							<VBox.margin>
+								<Insets top="5.0" fx:id="x3" />
+							</VBox.margin>
+						</Label>
+						<Label font="$x2" text="2)">
+							<VBox.margin>
+								<Insets top="5.0" fx:id="x3" />
+							</VBox.margin>
+						</Label>
+						<Label font="$x2" text="3)" VBox.margin="$x3" />
+						<Label font="$x2" text="4)" VBox.margin="$x3" />
+						<Label font="$x2" text="5)" VBox.margin="$x3" />
+						<Label font="$x2" text="6)" VBox.margin="$x3" />
+						<Label font="$x2" text="7)" VBox.margin="$x3" />
+						<Label font="$x2" text="8)" VBox.margin="$x3" />
+					</children>
+				</VBox>
+				<VBox prefHeight="259.0" prefWidth="97.0">
+					<children>
+						<TextField fx:id="left1" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left2" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left3" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left4" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left5" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left6" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left7" prefWidth="97.0" VBox.margin="$x3" />
+						<TextField fx:id="left8" prefWidth="97.0" VBox.margin="$x3" />
+					</children>
+					<padding>
+						<Insets left="5.0" />
+					</padding>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="100.0">
+					<children>
+						<TextField id="left" fx:id="right1" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right2" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right3" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right4" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right5" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right6" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right7" prefWidth="97.0"
+							VBox.margin="$x3" />
+						<TextField id="left" fx:id="right8" prefWidth="97.0"
+							VBox.margin="$x3" />
+					</children>
+					<HBox.margin>
+						<Insets left="5.0" />
+					</HBox.margin>
+				</VBox>
+			</children>
+		</HBox>
+	</children>
+</AnchorPane>
